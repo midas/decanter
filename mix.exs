@@ -18,8 +18,11 @@ defmodule Decanter.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:bunt, 
-                    :logger]]
+    [
+      applications: [
+        :logger
+      ]
+    ]
   end
 
   # Dependencies can be Hex packages:
@@ -37,7 +40,9 @@ defmodule Decanter.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:productive, "~> 0.0.1", in_umbrella: true}
+      {:apex, "~> 0.5"},
+      {:productive, "~> 0.0.1", in_umbrella: true},
+      {:sshex, "~> 2.1"}
     ]
   end
 end
