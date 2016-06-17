@@ -1,5 +1,6 @@
 defmodule Decanter.Ssh do
 
+  import Decanter.Async
   import Decanter.Logger
 
   alias Decanter.Util
@@ -12,15 +13,16 @@ defmodule Decanter.Ssh do
     cmd = "ls #{path}"
           |> String.to_char_list
 
-    results = servers
-              |> Enum.map( fn(server) -> Task.async(fn -> do_ls(cmd, server, path) end) end)
-              |> Enum.map( fn(task) -> Task.await(task) end )
+    results = parallelize( servers, &do_ls/3, [path, cmd] )
+    # TODO possibly check for any errors and relect in this response: {:error, errors, results}
 
     {:ok, results}
   end
 
-  defp do_ls( cmd, server, path ) do
-    info "Listing `#{path}` for `#{server}`"
+  # Private #########
+
+  defp do_ls( server, path, cmd ) do
+    debug "Listing `#{path}` for `#{server}`"
     server_info = Decanter.Util.server_info( server )
 
     case SSHEx.connect( ip: server_info.server, port: server_info.port, user: server_info.user ) do
