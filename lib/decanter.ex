@@ -1,0 +1,2 @@
+defmodule Decanter do
+end
