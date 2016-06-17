@@ -1,5 +1,7 @@
 defmodule Decanter.Logger do
 
+  def ap( val ), do: Apex.ap( val )
+
   def debug( msg ) when is_list(msg) do
     log_with_ansi( msg )
   end

@@ -2,6 +2,7 @@ defmodule Decanter.Step.DiscoverServerState do
 
   use Decanter.Step
 
+  alias Decanter.Logger
   alias Decanter.Ssh
 
   defp do_work( "any", recipe, _opts ) do
@@ -16,7 +17,7 @@ defmodule Decanter.Step.DiscoverServerState do
   defp handle_ls( {:ok, res} ) do
     Enum.each res, fn({server, entries}) ->
       warn server
-      info inspect(entries)
+      info Logger.ap(entries)
     end
   end
 
