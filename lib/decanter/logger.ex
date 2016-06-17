@@ -6,7 +6,7 @@ defmodule Decanter.Logger do
     log_with_ansi( msg )
   end
 
-  def debug( msg ), do: debug( [:cyan, msg] )
+  def debug( msg ), do: debug( [:blue, msg] )
 
   def error( msg ) when is_list(msg) do
     log_with_ansi( msg )
